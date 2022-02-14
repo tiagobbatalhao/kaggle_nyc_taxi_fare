@@ -1,4 +1,3 @@
-from cmath import log
 import os
 import pandas
 import numpy as np
@@ -73,8 +72,9 @@ def convert_to_parquet():
 
 
 def get_data_files():
-    files_train = glob.glob(os.path.join(DATA_FOLDER, '*train*.parquet'))
-    files_test = glob.glob(os.path.join(DATA_FOLDER, '*test*.parquet'))
+    data_folder = os.path.join(DATA_FOLDER, 'refined')
+    files_train = glob.glob(os.path.join(data_folder, '*train*.parquet'))
+    files_test = glob.glob(os.path.join(data_folder, '*test*.parquet'))
     return sorted(files_train), sorted(files_test)
 
 

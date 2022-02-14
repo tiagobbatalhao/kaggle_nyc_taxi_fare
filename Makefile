@@ -5,3 +5,5 @@ parse_data:
 	@python src/load_data.py
 	@rm -f data/*train*.csv
 	@rm -f data/*test*.csv
+	@mkdir -p data/refined
+	@mv data/*.parquet data/refined
