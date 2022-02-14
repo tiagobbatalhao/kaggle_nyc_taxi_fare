@@ -1,17 +1,20 @@
-import zipfile
+from cmath import log
 import os
 import pandas
 import numpy as np
 from datetime import datetime
+import glob
+import logging
 
-def _load_zip(path):
-    zipped = zipfile.ZipFile(path)
-    for name in zipped.namelist():
-        with zipped.open(name) as f:
-            yield name, f
+DATA_FOLDER = os.path.abspath(os.path.join(
+    os.path.dirname(__file__),
+    '..',
+    'data',
+))
 
-def _parse_data(file_obj, limit_lines=None):
+def _parse_data(file_obj, type_, header, limit_lines=None):
     read_kwargs = {}
+    read_kwargs['header'] = header
     read_kwargs['dtype'] = {
         'key': 'str',
         'fare_amount': np.float32,
@@ -24,38 +27,57 @@ def _parse_data(file_obj, limit_lines=None):
     }
     if isinstance(limit_lines, int) and (limit_lines > 0):
         read_kwargs['nrows'] = limit_lines
+
     df = pandas.read_csv(file_obj, **read_kwargs)
-    print("LOADED: {} rows".format(len(df)))
+
+    columns = [
+        'key',
+        'pickup_datetime',
+        'pickup_longitude',
+        'pickup_latitude',
+        'dropoff_longitude',
+        'dropoff_latitude',
+        'passenger_count'
+    ]
+    if type_ == 'train':
+        columns.insert(1, 'fare_amount')
+
+    if header is None:
+        df.columns = columns
+    df = df[columns]
 
     column_timestamp = 'pickup_datetime'
     if column_timestamp in df.columns:
         df[column_timestamp] = df[column_timestamp].apply(
             lambda s: datetime.strptime(s[:19], '%Y-%m-%d %H:%M:%S')
         )
-    print("TRANSFORMED TO TIMESTAMP")
     return df
 
-def load_data(force=False, **kwargs):
-    this_folder = os.path.dirname(__file__)
-    data_folder = os.path.join(this_folder, '..', 'data')
-    
-    path_train = os.path.join(data_folder, 'train.parquet')
-    path_test = os.path.join(data_folder, 'test.parquet')
-    if (not force) and (os.path.exists(path_train)) and(os.path.exists(path_test)):
-        df_train = pandas.read_parquet(path_train)
-        df_test = pandas.read_parquet(path_test)
-        return df_train, df_test
-    else:
-        datasets = {}
-        filename = "new-york-city-taxi-fare-prediction.zip"
-        path = os.path.abspath(os.path.join(data_folder, filename))
-        for name, obj in _load_zip(path):
-            print("READING {}".format(name))
-            if name == "train.csv":
-                datasets['train'] = _parse_data(obj, limit_lines=kwargs.get('limit_lines'))
-                datasets['train'].to_parquet(path_train)
-            elif name == "test.csv":
-                datasets['test'] = _parse_data(obj)
-                datasets['test'].to_parquet(path_test)
-        return datasets.get('train'), datasets.get('test')
 
+def convert_to_parquet():
+    files = glob.glob(os.path.join(DATA_FOLDER, 'parts_train*.csv'))
+    files += glob.glob(os.path.join(DATA_FOLDER, 'test*.csv'))
+    for fl in sorted(files):
+        logging.info('Loading {}'.format(fl))
+        if ('train' in fl):
+            if ('00.csv' in fl):
+                kwargs = {'type_': 'train', 'header': 0}
+            else:
+                kwargs = {'type_': 'train', 'header': None}
+        else:
+            kwargs = {'type_': 'test', 'header': 0}
+        with open(fl, 'r') as f:
+            df = _parse_data(f, **kwargs)
+        fl_save = fl.replace('.csv', '.parquet')
+        df.to_parquet(fl_save)
+
+
+def get_data_files():
+    files_train = glob.glob(os.path.join(DATA_FOLDER, '*train*.parquet'))
+    files_test = glob.glob(os.path.join(DATA_FOLDER, '*test*.parquet'))
+    return sorted(files_train), sorted(files_test)
+
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    convert_to_parquet()
