@@ -9,6 +9,7 @@ DATA_FOLDER = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
     '..',
     'data',
+    'raw',
 ))
 
 def _parse_data(file_obj, type_, header, limit_lines=None):
@@ -72,9 +73,8 @@ def convert_to_parquet():
 
 
 def get_data_files():
-    data_folder = os.path.join(DATA_FOLDER, 'refined')
-    files_train = glob.glob(os.path.join(data_folder, '*train*.parquet'))
-    files_test = glob.glob(os.path.join(data_folder, '*test*.parquet'))
+    files_train = glob.glob(os.path.join(DATA_FOLDER, '*train*.parquet'))
+    files_test = glob.glob(os.path.join(DATA_FOLDER, '*test*.parquet'))
     return sorted(files_train), sorted(files_test)
 
 
