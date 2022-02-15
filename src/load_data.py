@@ -70,6 +70,7 @@ def convert_to_parquet():
             df = _parse_data(f, **kwargs)
         fl_save = fl.replace('.csv', '.parquet')
         df.to_parquet(fl_save)
+        logging.info('Saved {}'.format(fl_save))
 
 
 def get_data_files():
