@@ -1,0 +1,117 @@
+[
+    {
+        "name": "state_assembly",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_State_Assembly_Districts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "state_assembly",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_State_Assembly_Districts_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "national_congress",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Congressional_Districts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "national_congress",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Congressional_Districts_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "state_senate",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_State_Senate_Districts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "state_senate",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_State_Senate_Districts_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "municipal_court",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Municipal_Court_Districts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "municipal_court",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Municipal_Court_Districts_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "city_council",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_City_Council_Districts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "city_council",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_City_Council_Districts_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "election_district",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Election_Districts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "election_district",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Election_Districts_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "borough",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Borough_Boundary/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "borough",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Borough_Boundary_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "community_district",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Community_Districts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "community_district",
+        "boundary": "water",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Community_Districts_Water_Included/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "school_district",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_School_Distrcts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "police_precint",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Police_Precincts/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "health_area",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Health_Areas/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "health_center",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Health_Centers/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "fire_companies",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Fire_Companies/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "fire_batallions",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Fire_Battalions/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    },
+    {
+        "name": "fire_divisions",
+        "boundary": "shoreline",
+        "link": "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Fire_Divisions/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=pgeojson"
+    }
+]
