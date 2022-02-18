@@ -10,7 +10,6 @@ DATA_FOLDER = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
     '..',
     'data',
-    'raw',
 ))
 
 def _parse_data(file_obj, type_, header, limit_lines=None):
@@ -55,13 +54,13 @@ def _parse_data(file_obj, type_, header, limit_lines=None):
     
     df.index = df['key'].apply(
         lambda x: int(hashlib.md5(x.encode('utf8')).hexdigest()[:16], base=16)
-    )
+    ).values
     return df
 
 
 def convert_to_parquet():
-    files = glob.glob(os.path.join(DATA_FOLDER, 'parts_train*.csv'))
-    files += glob.glob(os.path.join(DATA_FOLDER, 'test*.csv'))
+    files = glob.glob(os.path.join(DATA_FOLDER, 'raw', 'parts_train*.csv'))
+    files += glob.glob(os.path.join(DATA_FOLDER, 'raw', 'test*.csv'))
     for fl in sorted(files):
         logging.info('Loading {}'.format(fl))
         if ('train' in fl):
@@ -79,8 +78,8 @@ def convert_to_parquet():
 
 
 def get_data_files():
-    files_train = glob.glob(os.path.join(DATA_FOLDER, '*train*.parquet'))
-    files_test = glob.glob(os.path.join(DATA_FOLDER, '*test*.parquet'))
+    files_train = glob.glob(os.path.join(DATA_FOLDER, 'raw', '*train*.parquet'))
+    files_test = glob.glob(os.path.join(DATA_FOLDER, 'raw', '*test*.parquet'))
     return sorted(files_train), sorted(files_test)
 
 

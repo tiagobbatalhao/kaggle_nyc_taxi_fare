@@ -41,25 +41,29 @@ def shape_to_hexagons(shape, resolution):
         hexagons = []
         for g in shape.geoms:
             hexagons += shape_to_hexagons(g, resolution)
-    return sorted(hexagons)
+    return list(hexagons)
 
 
-def convert_hexagon(geojson, resolution):
+def convert_hexagon(geojson, resolution, as_integer):
     with io.StringIO(json.dumps(geojson)) as f:
         dfgeo = geopandas.read_file(f)
     dfgeo["hexagons"] = dfgeo["geometry"].apply(
         functools.partial(shape_to_hexagons, resolution=resolution)
     )
     dfgeo = pandas.DataFrame(dfgeo.drop("geometry", axis=1))
+    if as_integer:
+        dfgeo["hexagons"] = dfgeo["hexagons"].apply(
+            lambda ls: list([int(x, 16) for x in ls])
+        )
     return dfgeo
 
 
-def process_geometry(folder_output, datasets, resolution=11):
+def process_geometry(folder_output, datasets, resolution=11, as_integer=True):
     saved_files = download_geojson(folder_output, datasets)
     for fl in saved_files:
         with open(fl) as f:
             geojson = json.load(f)
-        df = convert_hexagon(geojson, resolution)
+        df = convert_hexagon(geojson, resolution, as_integer)        
         fl_save = fl.replace(".geojson", ".parquet")
         df.to_parquet(fl_save)
         logging.info("Saved {}".format(fl_save))
