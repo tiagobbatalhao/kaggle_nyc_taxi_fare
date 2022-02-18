@@ -31,7 +31,7 @@ def get_hexagon(df, prefix, resolution, as_integer=True):
         axis=1,
     )
     if as_integer:
-        df[column] = df[column].fillna('0').apply(lambda x: int(x, 16))
+        df[column] = df[column].fillna("0").apply(lambda x: int(x, 16))
     return df
 
 
@@ -45,21 +45,25 @@ def find_location(df_points, df_area, prefix, region_id):
     col = prefix + "_hexagon_ls"
     df_points[col] = df_points[prefix + "_hexagon"].apply(
         lambda s: [int(h3.h3_to_parent(hex(s)[2:], res=r), 16) for r in range(1, 16)]
-        if isinstance(s, int) and s>0
+        if isinstance(s, int) and s > 0
         else []
     )
     dfA = df_area[[region_id, "hexagons"]].explode("hexagons").dropna()
-    dfB = df_points.reset_index()[["index", col]].explode(col).rename(columns={col: "hexagons"}).dropna()
-    dfA['hexagons'] = dfA['hexagons'].astype(int)
-    dfB['hexagons'] = dfB['hexagons'].astype(int)
+    dfB = (
+        df_points.reset_index()[["index", col]]
+        .explode(col)
+        .rename(columns={col: "hexagons"})
+        .dropna()
+    )
+    dfA["hexagons"] = dfA["hexagons"].astype(int)
+    dfB["hexagons"] = dfB["hexagons"].astype(int)
     df = (
-        dfA.merge(dfB, on=["hexagons"])
-        [["index", region_id]]
+        dfA.merge(dfB, on=["hexagons"])[["index", region_id]]
         .rename(columns={region_id: prefix + "_" + region_id})
         .drop_duplicates(subset=["index"])
         .set_index("index")
     )
-    df = df_points[[]].join(df, how='left')
+    df = df_points[[]].join(df, how="left")
     return df
 
 

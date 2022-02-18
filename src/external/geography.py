@@ -63,7 +63,7 @@ def process_geometry(folder_output, datasets, resolution=11, as_integer=True):
     for fl in saved_files:
         with open(fl) as f:
             geojson = json.load(f)
-        df = convert_hexagon(geojson, resolution, as_integer)        
+        df = convert_hexagon(geojson, resolution, as_integer)
         fl_save = fl.replace(".geojson", ".parquet")
         df.to_parquet(fl_save)
         logging.info("Saved {}".format(fl_save))
