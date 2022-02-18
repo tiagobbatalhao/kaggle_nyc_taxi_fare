@@ -4,6 +4,7 @@ import numpy as np
 from datetime import datetime
 import glob
 import logging
+import hashlib
 
 DATA_FOLDER = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
@@ -51,6 +52,10 @@ def _parse_data(file_obj, type_, header, limit_lines=None):
         df[column_timestamp] = df[column_timestamp].apply(
             lambda s: datetime.strptime(s[:19], '%Y-%m-%d %H:%M:%S')
         )
+    
+    df.index = df['key'].apply(
+        lambda x: int(hashlib.md5(x.encode('utf8')).hexdigest()[:16], base=16)
+    )
     return df
 
 
