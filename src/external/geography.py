@@ -35,10 +35,7 @@ def download_geojson(folder_output, datasets=None):
 def shape_to_hexagons(shape, resolution):
     if shape.type == "Polygon":
         hexagons = h3.compact(
-            h3.polyfill(
-                shape.__geo_interface__,
-                resolution, geo_json_conformant=True,
-            )
+            h3.polyfill(shape.__geo_interface__, resolution, geo_json_conformant=True)
         )
     elif shape.type == "MultiPolygon":
         hexagons = []
