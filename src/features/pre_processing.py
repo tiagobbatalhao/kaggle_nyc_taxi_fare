@@ -99,8 +99,10 @@ def generate_features(folder_save):
         if os.path.exists(fl_save):
             continue
         arr = func(files["train"])
+        if len(arr.shape) == 1:
+            arr = arr.reshape(-1, 1)
         with open(fl_save, "wb") as f:
-            pickle.dump(arr.reshape(-1, 1), f)
+            pickle.dump(arr, f)
         logging.info(f"Saved {fl_save}")
 
     folder_refined = os.path.join(src.load_data.DATA_FOLDER, "refined")
@@ -110,8 +112,10 @@ def generate_features(folder_save):
             continue
         fls = glob.glob(os.path.join(folder_refined, f"{name}*train*.parquet"))
         arr = make_location(fls)
+        if len(arr.shape) == 1:
+            arr = arr.reshape(-1, 1)
         with open(fl_save, "wb") as f:
-            pickle.dump(arr.reshape(-1, 1), f)
+            pickle.dump(arr, f)
         logging.info(f"Saved {fl_save}")
 
 
