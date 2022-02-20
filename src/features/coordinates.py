@@ -87,7 +87,7 @@ def process_location(folder_output, location_type, region_id):
         df = pandas.read_parquet(fl)
         dfA = find_location(df, df_area, prefix="pickup", region_id=region_id)
         dfB = find_location(df, df_area, prefix="dropoff", region_id=region_id)
-        dfsave = dfA.join(dfB)
+        dfsave = df[[]].join(dfA, how="left").join(dfB, how="left")
         _, base = os.path.split(fl)
         fl_save = os.path.join(folder_output, base.replace("hexagon", location_type))
         dfsave.to_parquet(fl_save)
