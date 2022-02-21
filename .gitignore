@@ -2,6 +2,9 @@
 data
 drafts
 *.html
+*/mlruns/*
+*png
+*.tar.gz
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
